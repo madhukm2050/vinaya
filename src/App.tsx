@@ -171,7 +171,7 @@ export default function App() {
             }`}
           >
             <Gift size={20} />
-            <span className="hidden sm:inline">Special</span> Donors
+            Donors
           </button>
           <button
             onClick={() => setActiveTab("chanda")}
@@ -182,7 +182,7 @@ export default function App() {
             }`}
           >
             <Wallet size={20} />
-            Chanda <span className="hidden sm:inline">Contributions</span>
+            Chanda
           </button>
         </div>
 
@@ -232,7 +232,7 @@ export default function App() {
               <div className="bg-white rounded-2xl shadow-md border-l-4 border-yellow-500 overflow-hidden">
                 <div className="bg-yellow-50 p-4 border-b border-yellow-100 flex items-center gap-2">
                   <Crown className="text-yellow-600" />
-                  <h2 className="text-xl font-bold text-yellow-900">Deity & Major Donations</h2>
+                  <h2 className="text-xl font-bold text-yellow-900">Idol Donations</h2>
                 </div>
                 <div className="p-4 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-gray-50 rounded-xl border border-gray-100 shadow-sm gap-3 hover:shadow transition-all hover:border-yellow-200">
@@ -365,13 +365,13 @@ export default function App() {
           )}
 
           {/* ============================================================== */}
-          {/* TAB 2: CHANDA CONTRIBUTIONS (Data Table) */}
+          {/* TAB 2: CHANDA (Data Table) */}
           {/* ============================================================== */}
           {activeTab === "chanda" && (
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-purple-100">
               <div className="bg-purple-50 p-4 border-b border-purple-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <h2 className="text-xl font-bold text-purple-800">
-                  Chanda Contributions List
+                  Chanda List
                 </h2>
                 <button
                   onClick={fetchData}
