@@ -301,7 +301,7 @@ export default function App() {
                         <div className="flex items-center gap-3">
                           <Moon size={20} className="text-indigo-400 shrink-0" />
                           <span className="w-20 text-gray-500 font-medium text-sm">Evening:</span>
-                          <PendingBadge />
+                          <span className="font-bold text-gray-800 text-lg leading-tight">K Mallikarjuna Reddy and Family</span>
                         </div>
                       </div>
                     </div>
