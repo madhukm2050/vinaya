@@ -187,51 +187,68 @@ export default function App() {
           {activeTab === "donors" && (
             <div className="space-y-6">
               {/* Sound System */}
-              <div className="bg-white rounded-2xl shadow-md border-l-4 border-blue-500 overflow-hidden">
-                <div className="bg-blue-50 p-4 border-b border-blue-100 flex items-center gap-2">
-                  <Volume2 className="text-blue-600" />
-                  <h2 className="text-xl font-bold text-blue-900">
-                    Sound System Donations
-                  </h2>
-                </div>
-                <div className="p-4 sm:p-5 space-y-6">
-                  <div>
-                    <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3 pl-1">
-                      500W Speakers System
-                    </h3>
-                    <ul className="space-y-2 ml-1">
-                      <li className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition">
-                        <div className="mt-2 w-2 h-2 rounded-full bg-blue-500 shrink-0 shadow-sm"></div>
-                        <span className="font-bold text-gray-800 text-lg">
-                          Bussa Chinnappaiah Gari Thimmareddy Family
-                        </span>
-                      </li>
-                      <li className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition">
-                        <div className="mt-2 w-2 h-2 rounded-full bg-blue-500 shrink-0 shadow-sm"></div>
-                        <span className="font-bold text-gray-800 text-lg">
-                          Pedda Reddy Gari Shivareddy Family
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
+              <div className="bg-white rounded-2xl shadow-lg border border-blue-100 overflow-hidden">
+  {/* Card Header */}
+  <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-4 sm:p-5 flex items-center justify-between text-white shadow-sm">
+    <div className="flex items-center gap-3">
+      <div className="p-2 bg-white/20 backdrop-blur-sm rounded-xl">
+        <Volume2 className="text-white" size={24} />
+      </div>
+      <div>
+        <h2 className="text-xl font-extrabold tracking-tight">
+          Sound System Donations
+        </h2>
+        <p className="text-blue-100 text-xs font-medium">
+          Equipment & Audio Sponsors
+        </p>
+      </div>
+    </div>
+  </div>
 
-                  <hr className="border-gray-100" />
+  {/* Card Content */}
+  <div className="p-5 sm:p-6 space-y-6">
+    {/* Section 1: 500W Speakers System */}
+    <div className="bg-blue-50/50 rounded-xl p-4 border border-blue-100/70">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+          500W Speakers System
+        </span>
+      </div>
 
-                  <div>
-                    <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3 pl-1">
-                      Amplifier
-                    </h3>
-                    <ul className="space-y-2 ml-1">
-                      <li className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition">
-                        <div className="mt-2 w-2 h-2 rounded-full bg-blue-500 shrink-0 shadow-sm"></div>
-                        <span className="font-bold text-gray-800 text-lg">
-                          V Thimma Reddy And Family
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+      <div className="space-y-2">
+        <div className="flex items-center gap-3 bg-white p-3.5 rounded-lg border border-blue-100 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
+          <div className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0"></div>
+          <span className="font-bold text-gray-800 text-base sm:text-lg">
+            Bussa Chinnappaiah Gari Thimmareddy Family
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3 bg-white p-3.5 rounded-lg border border-blue-100 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
+          <div className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0"></div>
+          <span className="font-bold text-gray-800 text-base sm:text-lg">
+            Pedda Reddy Gari Shivareddy Family
+          </span>
+        </div>
+      </div>
+    </div>
+
+    {/* Section 2: Amplifier */}
+    <div className="bg-blue-50/50 rounded-xl p-4 border border-blue-100/70">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+          Amplifier
+        </span>
+      </div>
+
+      <div className="bg-white p-3.5 rounded-lg border border-blue-100 shadow-sm hover:shadow-md hover:border-blue-300 transition-all flex items-center gap-3">
+        <div className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0"></div>
+        <span className="font-bold text-gray-800 text-base sm:text-lg">
+          V Thimma Reddy And Family
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
               {/* Major Donations */}
               <div className="bg-white rounded-2xl shadow-md border-l-4 border-yellow-500 overflow-hidden">
@@ -413,26 +430,23 @@ export default function App() {
                     <hr className="border-gray-100" />
 
                     {/* Day 7 */}
-                    <div className="flex flex-col md:flex-row md:items-start p-3 sm:p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 shadow-sm hover:shadow">
-                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">
-                        Day 7
-                      </div>
-                      <div className="flex-1 space-y-3">
-                        <div className="flex items-center gap-3">
-                          <Clock
-                            size={20}
-                            className="text-indigo-400 shrink-0"
-                          />
-                          <span className="w-20 text-gray-500 font-medium text-sm">
-                            Full Day:
-                          </span>
-                          <span className="font-bold text-gray-800 text-lg leading-tight">
-                            C Shabhreesh Reddy AND K H Hari Gopal Reddy AND
-                            Kuruba Sreenath and Families
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-b from-orange-50/60 to-amber-50/40 border-2 border-orange-200/80 shadow-sm hover:shadow-md transition text-center space-y-3">
+  {/* Header Badge / Title */}
+  <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-800 px-4 py-1.5 rounded-full border border-orange-200 font-bold text-base md:text-lg shadow-sm">
+    <Clock size={18} className="text-orange-600" />
+    <span>Day 7 (Maha Prasada Datha)</span>
+  </div>
+
+  {/* Centered Donor Details */}
+  <div className="flex flex-col items-center justify-center space-y-1">
+    <span className="text-xs uppercase tracking-wider font-semibold text-gray-500">
+      Full Day Prasadam
+    </span>
+    <p className="font-bold text-gray-800 text-lg md:text-xl leading-relaxed max-w-xl mx-auto">
+      C Shabhreesh Reddy <span className="text-orange-500 font-normal">&amp;</span> K H Hari Gopal Reddy <span className="text-orange-500 font-normal">&amp;</span> Kuruba Sreenath and Families
+    </p>
+  </div>
+</div>
                   </div>
                 </div>
               </div>
