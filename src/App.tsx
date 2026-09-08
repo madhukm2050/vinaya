@@ -317,7 +317,11 @@ export default function App() {
                           <span className="w-20 text-gray-500 font-medium text-sm">
                             Evening:
                           </span>
-                          <PendingBadge />
+                           <span className="font-bold text-gray-800 text-lg leading-tight">
+                             K Surya narayana reddy(Manju reddy)
+                          </span>
+                         
+                    
                         </div>
                       </div>
                     </div>
