@@ -11,7 +11,7 @@ import {
   Sun,
   Moon,
   Clock,
-  Heart
+  Heart,
 } from "lucide-react";
 
 // --- Configuration ---
@@ -32,7 +32,8 @@ type SortConfig = {
 
 export default function App() {
   const [data, setData] = useState<ChandaData[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // Fix 1: Initialize isLoading to true to show loader immediately on mount
+  const [isLoading, setIsLoading] = useState(true);
 
   // Main Tabs
   const [activeTab, setActiveTab] = useState<"donors" | "chanda">("donors");
@@ -40,15 +41,6 @@ export default function App() {
   // Chanda Tab Search & Sorting
   const [searchQuery, setSearchQuery] = useState("");
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
-
-  useEffect(() => {
-    // Injecting Tailwind for styling
-    const script = document.createElement("script");
-    script.src = "https://cdn.tailwindcss.com";
-    document.head.appendChild(script);
-
-    fetchData();
-  }, []);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -66,9 +58,14 @@ export default function App() {
     } catch (error) {
       console.error("Error fetching data:", error);
       setData([]);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const safeData = Array.isArray(data) ? data : [];
   const totalAmount = safeData.reduce(
@@ -135,7 +132,6 @@ export default function App() {
     return items;
   }, [safeData, searchQuery, sortConfig]);
 
-  // Helper component for pending badges
   const PendingBadge = () => (
     <span className="bg-orange-100 text-orange-700 text-xs font-black px-3 py-1 rounded-lg border border-orange-200 shadow-sm whitespace-nowrap">
       PENDING
@@ -187,29 +183,34 @@ export default function App() {
         </div>
 
         <div className="animate-fade-in">
-          {/* ============================================================== */}
-          {/* TAB 1: DONOR LIST (Special Donations & Prasadam) */}
-          {/* ============================================================== */}
+          {/* TAB 1: DONOR LIST */}
           {activeTab === "donors" && (
             <div className="space-y-6">
-              
-              {/* Section 1: Sound System */}
+              {/* Sound System */}
               <div className="bg-white rounded-2xl shadow-md border-l-4 border-blue-500 overflow-hidden">
                 <div className="bg-blue-50 p-4 border-b border-blue-100 flex items-center gap-2">
                   <Volume2 className="text-blue-600" />
-                  <h2 className="text-xl font-bold text-blue-900">Sound System Donations</h2>
+                  <h2 className="text-xl font-bold text-blue-900">
+                    Sound System Donations
+                  </h2>
                 </div>
                 <div className="p-4 sm:p-5 space-y-6">
                   <div>
-                    <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3 pl-1">500W Speakers System</h3>
+                    <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3 pl-1">
+                      500W Speakers System
+                    </h3>
                     <ul className="space-y-2 ml-1">
                       <li className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition">
                         <div className="mt-2 w-2 h-2 rounded-full bg-blue-500 shrink-0 shadow-sm"></div>
-                        <span className="font-bold text-gray-800 text-lg">Bussa Chinnappaiah Gari Thimmareddy Family</span>
+                        <span className="font-bold text-gray-800 text-lg">
+                          Bussa Chinnappaiah Gari Thimmareddy Family
+                        </span>
                       </li>
                       <li className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition">
                         <div className="mt-2 w-2 h-2 rounded-full bg-blue-500 shrink-0 shadow-sm"></div>
-                        <span className="font-bold text-gray-800 text-lg">Pedda Reddy Gari Shivareddy Family</span>
+                        <span className="font-bold text-gray-800 text-lg">
+                          Pedda Reddy Gari Shivareddy Family
+                        </span>
                       </li>
                     </ul>
                   </div>
@@ -217,33 +218,41 @@ export default function App() {
                   <hr className="border-gray-100" />
 
                   <div>
-                    <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3 pl-1">Amplifier</h3>
+                    <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3 pl-1">
+                      Amplifier
+                    </h3>
                     <ul className="space-y-2 ml-1">
                       <li className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition">
                         <div className="mt-2 w-2 h-2 rounded-full bg-blue-500 shrink-0 shadow-sm"></div>
-                        <span className="font-bold text-gray-800 text-lg">V Thimma Reddy And Family</span>
+                        <span className="font-bold text-gray-800 text-lg">
+                          V Thimma Reddy And Family
+                        </span>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
 
-              {/* Section 2: Major Donations */}
+              {/* Major Donations */}
               <div className="bg-white rounded-2xl shadow-md border-l-4 border-yellow-500 overflow-hidden">
                 <div className="bg-yellow-50 p-4 border-b border-yellow-100 flex items-center gap-2">
                   <Crown className="text-yellow-600" />
-                  <h2 className="text-xl font-bold text-yellow-900">Idol Donations</h2>
+                  <h2 className="text-xl font-bold text-yellow-900">
+                    Idol Donations
+                  </h2>
                 </div>
                 <div className="p-4 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-gray-50 rounded-xl border border-gray-100 shadow-sm gap-3 hover:shadow transition-all hover:border-yellow-200">
                     <span className="font-bold text-gray-800 flex items-center gap-2">
-                      <Heart size={18} className="text-yellow-500 shrink-0" /> Vinayaka Idol
+                      <Heart size={18} className="text-yellow-500 shrink-0" />{" "}
+                      Vinayaka Idol
                     </span>
                     <PendingBadge />
                   </div>
                   <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center p-4 bg-gray-50 rounded-xl border border-gray-100 shadow-sm gap-3 hover:shadow transition-all hover:border-yellow-200">
                     <span className="font-bold text-gray-800 flex items-center gap-2">
-                      <Heart size={18} className="text-yellow-500 shrink-0" /> Silver Idol / Chain + Laddu
+                      <Heart size={18} className="text-yellow-500 shrink-0" />{" "}
+                      Silver Idol / Chain + Laddu
                     </span>
                     <span className="text-sm font-black text-green-700 bg-green-100 px-3 py-1.5 rounded-lg border border-green-200 text-right whitespace-nowrap shadow-sm">
                       K. P. Prabhakar Reddy
@@ -252,30 +261,43 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Section 3: Prasadam Schedule */}
+              {/* Prasadam Schedule */}
               <div className="bg-white rounded-2xl shadow-md border-l-4 border-green-500 overflow-hidden">
                 <div className="bg-green-50 p-4 border-b border-green-100 flex items-center gap-2">
                   <CalendarDays className="text-green-600" />
-                  <h2 className="text-xl font-bold text-green-900">Daily Prasadam Schedule</h2>
+                  <h2 className="text-xl font-bold text-green-900">
+                    Daily Prasadam Schedule
+                  </h2>
                 </div>
                 <div className="p-4 sm:p-5">
                   <div className="space-y-4">
-                    
                     {/* Day 1 */}
                     <div className="flex flex-col md:flex-row md:items-start p-3 sm:p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 shadow-sm hover:shadow">
                       <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">
-                        Day 1 <span className="text-gray-400 text-sm font-normal block sm:inline">(Sep 14)</span>
+                        Day 1{" "}
+                        <span className="text-gray-400 text-sm font-normal block sm:inline">
+                          (Sep 14)
+                        </span>
                       </div>
                       <div className="flex-1 space-y-3">
                         <div className="flex items-center gap-3">
                           <Sun size={20} className="text-orange-400 shrink-0" />
-                          <span className="w-20 text-gray-500 font-medium text-sm">Morning:</span>
+                          <span className="w-20 text-gray-500 font-medium text-sm">
+                            Morning:
+                          </span>
                           <PendingBadge />
                         </div>
                         <div className="flex items-center gap-3">
-                          <Moon size={20} className="text-indigo-400 shrink-0" />
-                          <span className="w-20 text-gray-500 font-medium text-sm">Evening:</span>
-                          <span className="font-bold text-gray-800 text-lg leading-tight">Lingayyagari Mallappa (Madhu)</span>
+                          <Moon
+                            size={20}
+                            className="text-indigo-400 shrink-0"
+                          />
+                          <span className="w-20 text-gray-500 font-medium text-sm">
+                            Evening:
+                          </span>
+                          <span className="font-bold text-gray-800 text-lg leading-tight">
+                            Lingayyagari Mallappa (Madhu)
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -283,11 +305,18 @@ export default function App() {
 
                     {/* Day 2 */}
                     <div className="flex flex-col md:flex-row md:items-start p-3 sm:p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 shadow-sm hover:shadow">
-                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">Day 2</div>
+                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">
+                        Day 2
+                      </div>
                       <div className="flex-1 space-y-3">
                         <div className="flex items-center gap-3">
-                          <Moon size={20} className="text-indigo-400 shrink-0" />
-                          <span className="w-20 text-gray-500 font-medium text-sm">Evening:</span>
+                          <Moon
+                            size={20}
+                            className="text-indigo-400 shrink-0"
+                          />
+                          <span className="w-20 text-gray-500 font-medium text-sm">
+                            Evening:
+                          </span>
                           <PendingBadge />
                         </div>
                       </div>
@@ -296,12 +325,21 @@ export default function App() {
 
                     {/* Day 3 */}
                     <div className="flex flex-col md:flex-row md:items-start p-3 sm:p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 shadow-sm hover:shadow">
-                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">Day 3</div>
+                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">
+                        Day 3
+                      </div>
                       <div className="flex-1 space-y-3">
                         <div className="flex items-center gap-3">
-                          <Moon size={20} className="text-indigo-400 shrink-0" />
-                          <span className="w-20 text-gray-500 font-medium text-sm">Evening:</span>
-                          <span className="font-bold text-gray-800 text-lg leading-tight">K Mallikarjuna Reddy and Family</span>
+                          <Moon
+                            size={20}
+                            className="text-indigo-400 shrink-0"
+                          />
+                          <span className="w-20 text-gray-500 font-medium text-sm">
+                            Evening:
+                          </span>
+                          <span className="font-bold text-gray-800 text-lg leading-tight">
+                            K Mallikarjuna Reddy and Family
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -309,11 +347,18 @@ export default function App() {
 
                     {/* Day 4 */}
                     <div className="flex flex-col md:flex-row md:items-start p-3 sm:p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 shadow-sm hover:shadow">
-                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">Day 4</div>
+                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">
+                        Day 4
+                      </div>
                       <div className="flex-1 space-y-3">
                         <div className="flex items-center gap-3">
-                          <Moon size={20} className="text-indigo-400 shrink-0" />
-                          <span className="w-20 text-gray-500 font-medium text-sm">Evening:</span>
+                          <Moon
+                            size={20}
+                            className="text-indigo-400 shrink-0"
+                          />
+                          <span className="w-20 text-gray-500 font-medium text-sm">
+                            Evening:
+                          </span>
                           <PendingBadge />
                         </div>
                       </div>
@@ -322,11 +367,18 @@ export default function App() {
 
                     {/* Day 5 */}
                     <div className="flex flex-col md:flex-row md:items-start p-3 sm:p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 shadow-sm hover:shadow">
-                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">Day 5</div>
+                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">
+                        Day 5
+                      </div>
                       <div className="flex-1 space-y-3">
                         <div className="flex items-center gap-3">
-                          <Moon size={20} className="text-indigo-400 shrink-0" />
-                          <span className="w-20 text-gray-500 font-medium text-sm">Evening:</span>
+                          <Moon
+                            size={20}
+                            className="text-indigo-400 shrink-0"
+                          />
+                          <span className="w-20 text-gray-500 font-medium text-sm">
+                            Evening:
+                          </span>
                           <PendingBadge />
                         </div>
                       </div>
@@ -335,12 +387,22 @@ export default function App() {
 
                     {/* Day 6 */}
                     <div className="flex flex-col md:flex-row md:items-start p-3 sm:p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 shadow-sm hover:shadow">
-                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">Day 6</div>
+                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">
+                        Day 6
+                      </div>
                       <div className="flex-1 space-y-3">
                         <div className="flex items-center gap-3">
-                          <Moon size={20} className="text-indigo-400 shrink-0" />
-                          <span className="w-20 text-gray-500 font-medium text-sm">Evening:</span>
-                          <span className="font-bold text-gray-800 text-lg leading-tight">K. Shyamala W/o Nakkalapalli Srinivasa Reddy (Pranay)</span>
+                          <Moon
+                            size={20}
+                            className="text-indigo-400 shrink-0"
+                          />
+                          <span className="w-20 text-gray-500 font-medium text-sm">
+                            Evening:
+                          </span>
+                          <span className="font-bold text-gray-800 text-lg leading-tight">
+                            K. Shyamala W/o Nakkalapalli Srinivasa Reddy
+                            (Pranay)
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -348,25 +410,32 @@ export default function App() {
 
                     {/* Day 7 */}
                     <div className="flex flex-col md:flex-row md:items-start p-3 sm:p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 shadow-sm hover:shadow">
-                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">Day 7</div>
+                      <div className="w-32 font-bold text-gray-800 mb-3 md:mb-0 text-lg mt-1">
+                        Day 7
+                      </div>
                       <div className="flex-1 space-y-3">
                         <div className="flex items-center gap-3">
-                          <Clock size={20} className="text-gray-400 shrink-0" />
-                          <span className="w-20 text-gray-500 font-medium text-sm">Full Day:</span>
-                          <PendingBadge />
+                          <Clock
+                            size={20}
+                            className="text-indigo-400 shrink-0"
+                          />
+                          <span className="w-20 text-gray-500 font-medium text-sm">
+                            Full Day:
+                          </span>
+                          <span className="font-bold text-gray-800 text-lg leading-tight">
+                            C Shabhreesh Reddy AND K H Hari Gopal Reddy AND
+                            Kuruba Sreenath and Families
+                          </span>
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
             </div>
           )}
 
-          {/* ============================================================== */}
-          {/* TAB 2: CHANDA (Data Table) */}
-          {/* ============================================================== */}
+          {/* TAB 2: CHANDA */}
           {activeTab === "chanda" && (
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-purple-100">
               <div className="bg-purple-50 p-4 border-b border-purple-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
@@ -384,7 +453,10 @@ export default function App() {
               {/* Search Bar */}
               <div className="p-4 border-b border-gray-100 bg-white">
                 <div className="relative">
-                  <Search className="absolute left-3 top-3.5 text-gray-400" size={20} />
+                  <Search
+                    className="absolute left-3 top-3.5 text-gray-400"
+                    size={20}
+                  />
                   <input
                     type="text"
                     value={searchQuery}
@@ -424,13 +496,17 @@ export default function App() {
                   <tbody className="divide-y divide-gray-100">
                     {filteredChandaData.map((item, idx) => (
                       <tr key={idx} className="hover:bg-purple-50 transition">
-                        <td className="p-4 text-gray-500 font-medium">{idx + 1}</td>
+                        <td className="p-4 text-gray-500 font-medium">
+                          {idx + 1}
+                        </td>
                         <td className="p-4 font-bold text-gray-800 whitespace-normal min-w-[150px]">
                           {item.name}
                         </td>
                         <td
                           className={`p-4 text-right font-black ${
-                            item.status === "Paid" ? "text-green-600" : "text-red-500"
+                            item.status === "Paid"
+                              ? "text-green-600"
+                              : "text-red-500"
                           }`}
                         >
                           ₹{item.amount}
@@ -450,7 +526,10 @@ export default function App() {
                     ))}
                     {filteredChandaData.length === 0 && (
                       <tr>
-                        <td colSpan={4} className="p-8 text-center text-gray-400">
+                        <td
+                          colSpan={4}
+                          className="p-8 text-center text-gray-400"
+                        >
                           {searchQuery
                             ? `No records found for "${searchQuery}".`
                             : `No records found.`}
@@ -460,7 +539,10 @@ export default function App() {
                   </tbody>
                   <tfoot>
                     <tr className="bg-purple-100 border-t-2 border-purple-200">
-                      <td colSpan={2} className="p-4 text-right font-black text-purple-900 md:text-xl">
+                      <td
+                        colSpan={2}
+                        className="p-4 text-right font-black text-purple-900 md:text-xl"
+                      >
                         Total Amount:
                       </td>
                       <td className="p-4 text-right font-black text-gray-800 md:text-xl">
