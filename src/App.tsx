@@ -226,7 +226,7 @@ export default function App() {
         <div className="flex items-center gap-3 bg-white p-3.5 rounded-lg border border-blue-100 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
           <div className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0"></div>
           <span className="font-bold text-gray-800 text-base sm:text-lg">
-            Pedda Reddy Gari Shivareddy Family
+            Peddi Reddy Gari Shivareddy Family
           </span>
         </div>
       </div>
@@ -443,7 +443,7 @@ export default function App() {
       Full Day Prasadam
     </span>
     <p className="font-bold text-gray-800 text-lg md:text-xl leading-relaxed max-w-xl mx-auto">
-      C Shabhreesh Reddy <span className="text-orange-500 font-normal">&amp;</span> K H Hari Gopal Reddy <span className="text-orange-500 font-normal">&amp;</span> Kuruba Sreenath and Families
+      C Shabhreesh Reddy <span className="text-orange-500 font-normal">&amp;</span> K H Hari Gopal Reddy <span className="text-orange-500 font-normal">&amp;</span> Kuruba Srinath and Families
     </p>
   </div>
 </div>
